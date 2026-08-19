@@ -1,22 +1,25 @@
 # prettier-plugin-tailwindcss-anywhere
 
-[![](https://github.com/ttskch/prettier-plugin-tailwindcss-anywhere/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/ttskch/prettier-plugin-tailwindcss-anywhere/actions/workflows/ci.yaml?query=branch:main)
-[![codecov](https://codecov.io/gh/ttskch/prettier-plugin-tailwindcss-anywhere/graph/badge.svg?token=GEZ1cdUmSx)](https://codecov.io/gh/ttskch/prettier-plugin-tailwindcss-anywhere)
-[![NPM Version](https://img.shields.io/npm/v/%40ttskch%2Fprettier-plugin-tailwindcss-anywhere)](https://www.npmjs.com/package/@ttskch/prettier-plugin-tailwindcss-anywhere)
-[![NPM Downloads](https://img.shields.io/npm/dm/%40ttskch%2Fprettier-plugin-tailwindcss-anywhere)](https://www.npmjs.com/package/@ttskch/prettier-plugin-tailwindcss-anywhere)
+[![](https://github.com/DenisStetsenko/prettier-plugin-tailwindcss-anywhere/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/DenisStetsenko/prettier-plugin-tailwindcss-anywhere/actions/workflows/ci.yaml?query=branch:main)
+[![codecov](https://codecov.io/github/DenisStetsenko/prettier-plugin-tailwindcss-anywhere/graph/badge.svg?token=GAGRZ7BEZ7)](https://codecov.io/github/DenisStetsenko/prettier-plugin-tailwindcss-anywhere)
+[![NPM Version](https://img.shields.io/npm/v/%40denstetsenko%2Fprettier-plugin-tailwindcss-anywhere)](https://www.npmjs.com/package/@denstetsenko/prettier-plugin-tailwindcss-anywhere)
+[![NPM Downloads](https://img.shields.io/npm/dm/%40denstetsenko%2Fprettier-plugin-tailwindcss-anywhere)](https://www.npmjs.com/package/@denstetsenko/prettier-plugin-tailwindcss-anywhere)
 
 A Prettier plugin for sorting TailwindCSS classes **in any HTML-like language, like Twig etc**⚡
 
+> [!NOTE]
+> This is a maintained fork of [@ttskch/prettier-plugin-tailwindcss-anywhere](https://github.com/ttskch/prettier-plugin-tailwindcss-anywhere) by Takashi Kanemoto, published as `@denstetsenko/prettier-plugin-tailwindcss-anywhere`.
+
 ## Requirements
 
-* Node: `>= 20.9 < 24`
+* Node: `>= 20.9 < 25`
 
 ## Installation
 
 ```shell
 npm install -D prettier \
                prettier-plugin-tailwindcss \
-               @ttskch/prettier-plugin-tailwindcss-anywhere
+               @denstetsenko/prettier-plugin-tailwindcss-anywhere
 ```
 
 ## Usage
@@ -28,7 +31,7 @@ For example, by setting `.prettierrc` as follows, you can sort classes even in f
 ```json5
 // .prettierrc
 {
-  "plugins": ["prettier-plugin-tailwindcss", "@ttskch/prettier-plugin-tailwindcss-anywhere"],
+  "plugins": ["prettier-plugin-tailwindcss", "@denstetsenko/prettier-plugin-tailwindcss-anywhere"],
   "overrides": [
     {
       "files": "*.html.twig",
