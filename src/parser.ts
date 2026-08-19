@@ -1,4 +1,4 @@
-import { type ParserOptions, format } from "prettier";
+import { type ParserOptions, type Plugin, format } from "prettier";
 import * as prettierPluginTailwindcss from "prettier-plugin-tailwindcss";
 import type { AnywhereNode } from "./types.js";
 
@@ -20,7 +20,9 @@ export const parse = async (
     const fixedValue = (
       await format(`<div class="${value}"></div>`, {
         parser: "html",
-        plugins: [prettierPluginTailwindcss],
+        // v0.8 types its parsers as possibly lazy, which Prettier's Plugin
+        // type does not allow, although it accepts them at runtime.
+        plugins: [prettierPluginTailwindcss as unknown as Plugin],
       })
     ).match(/class="([^"]*)"/)?.[1];
 
