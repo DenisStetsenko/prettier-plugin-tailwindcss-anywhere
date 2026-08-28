@@ -46,36 +46,36 @@ For example, by setting `.prettierrc` as follows, you can sort classes even in f
 ### Before
 
 ```twig
-{% extends 'base.html.twig %}
-  {% block content %}
-    <div class="space-y-4 flex-col flex">
-      <div class="p-4 rounded-lg bg-blue-500 text-white rounded-lg p-4">
-        Hello, {{ name }}!
-      </div>
+{% extends 'base.html.twig' %}
+
+{% block content %}
+  <div class="space-y-4 flex-col flex">
+    <div class="p-4 rounded-lg bg-blue-500 text-white rounded-lg p-4">
+      Hello, {{ name }}!
     </div>
-  {% endblock %}
+  </div>
 {% endblock %}
 ```
 
 ### After
 
 ```diff
-  {% extends 'base.html.twig %}
-    {% block content %}
--     <div class="space-y-4 flex-col flex">
-+     <div class="flex flex-col space-y-4">
--       <div class="p-4 rounded-lg bg-blue-500 text-white rounded-lg p-4">
-+       <div class="rounded-lg bg-blue-500 p-4 text-white">
-          Hello, {{ name }}!
-        </div>
+  {% extends 'base.html.twig' %}
+
+  {% block content %}
+-   <div class="space-y-4 flex-col flex">
++   <div class="flex flex-col space-y-4">
+-     <div class="p-4 rounded-lg bg-blue-500 text-white rounded-lg p-4">
++     <div class="rounded-lg bg-blue-500 p-4 text-white">
+        Hello, {{ name }}!
       </div>
-    {% endblock %}
+    </div>
   {% endblock %}
 ```
 
 ## Options
 
-### `regex` 
+### `regex`
 
 **default:** `class="([^"]*)"`
 
@@ -111,24 +111,31 @@ If classes appear in more than one place in your templates, use alternation and 
 For example, in PHP classes live both in the attribute itself and in string literals interpolated into it:
 
 ```php
-<div class="p-0 container <?= $x ? 'items-center m-0 flex' : '' ?>">
+<div class="p-0 container <?= $x ? 'relative after:content-[\'\'] inline-block' : '' ?>">
 ```
 
 ```json5
 {
   "options": {
     "parser": "anywhere",
-    "regex": "class=\"([^\"<]*)(?:\"| <)|(?<=class=\"[^\"]*<\\?[^\"']*)'([^']*)'",
+    "regex": "class=\"([^\"<]*)(?:\"| <)|(?<=class=\"[^\"]*<\\?[^\"']*)'((?:[^'\\\\]|\\\\.)*)'",
   }
 }
 ```
 
 ```diff
-- <div class="p-0 container <?= $x ? 'items-center m-0 flex' : '' ?>">
-+ <div class="container p-0 <?= $x ? 'm-0 flex items-center' : '' ?>">
+- <div class="p-0 container <?= $x ? 'relative after:content-[\'\'] inline-block' : '' ?>">
++ <div class="container p-0 <?= $x ? 'relative inline-block after:content-[\'\']' : '' ?>">
 ```
 
-The lookbehind keeps the second branch from touching quoted strings elsewhere in the file, and letting the first branch stop at `<` rather than at `'` keeps arbitrary values such as `after:content-['']` intact.
+The lookbehind keeps the second branch from touching quoted strings elsewhere in the file, and letting the first branch stop at `<` rather than at `'` keeps arbitrary values such as `after:content-['']` intact. Matching the string body as `(?:[^'\\]|\\.)*` rather than `[^']*` steps over escaped quotes, so `after:content-[\'\']` survives instead of being cut in half at the first `\'`.
+
+Only single-quoted PHP strings are covered. A double-quoted one already closes the attribute as far as a regular expression can tell, so the lookbehind never reaches into it. The attribute itself is still sorted by the first branch, the string is simply left alone:
+
+```diff
+- <div class="p-0 container <?= $x ? "items-center m-0 flex" : '' ?>">
++ <div class="container p-0 <?= $x ? "items-center m-0 flex" : '' ?>">
+```
 
 ## Getting involved
 
