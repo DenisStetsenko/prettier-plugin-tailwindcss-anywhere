@@ -80,6 +80,19 @@ describe("index", () => {
     );
   });
 
+  it("with a regex capturing nothing", async () => {
+    const result = await format(`<div class="p-0 container m-0"></div>`, {
+      parser: "anywhere",
+      // @ts-ignore
+      plugins: [plugin],
+      regex: 'class="[^"]*"',
+    });
+
+    expect(result).toMatchInlineSnapshot(
+      `"<div class="p-0 container m-0"></div>"`,
+    );
+  });
+
   it("repeating classes", async () => {
     const result = await format(
       `<div class="p-0 container m-0"></div><div class="p-0 container m-0"></div><div class="p-0 container m-0"></div>`,
