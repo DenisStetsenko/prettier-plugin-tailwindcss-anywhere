@@ -48,6 +48,38 @@ describe("index", () => {
     `);
   });
 
+  it("quotes inside an arbitrary value", async () => {
+    const result = await format(
+      `<div class="uppercase after:content-[''] relative"></div>`,
+      {
+        parser: "anywhere",
+        // @ts-ignore
+        plugins: [plugin],
+      },
+    );
+
+    expect(result).toMatchInlineSnapshot(
+      `"<div class="relative uppercase after:content-['']"></div>"`,
+    );
+  });
+
+  it("with a regex using alternation", async () => {
+    const result = await format(
+      `<div class="p-0 container <?= $x ? 'items-center m-0 flex' : '' ?>"></div>`,
+      {
+        parser: "anywhere",
+        // @ts-ignore
+        plugins: [plugin],
+        regex:
+          'class="([^"<]*)(?:"| <)|(?<=class="[^"]*<\\?[^"\']*)\'([^\']*)\'',
+      },
+    );
+
+    expect(result).toMatchInlineSnapshot(
+      `"<div class="container p-0 <?= $x ? 'm-0 flex items-center' : '' ?>"></div>"`,
+    );
+  });
+
   it("repeating classes", async () => {
     const result = await format(
       `<div class="p-0 container m-0"></div><div class="p-0 container m-0"></div><div class="p-0 container m-0"></div>`,

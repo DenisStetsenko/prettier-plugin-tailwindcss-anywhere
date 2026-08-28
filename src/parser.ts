@@ -24,7 +24,14 @@ export const parse = async (
 
   for (const match of matches) {
     const original = match[0];
-    const value = match[1];
+    // Take the first group that participated in the match, so that a regex can
+    // use alternation to cover several places where classes appear, each
+    // branch carrying its own capturing group.
+    const value = match.slice(1).find((group) => group !== undefined);
+
+    if (value === undefined) {
+      continue;
+    }
 
     const fixedValue = (
       await format(`<div class="${value}"></div>`, {

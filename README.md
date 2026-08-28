@@ -106,6 +106,30 @@ In this case, you can specify the following `regex` to sort only the part before
 > [!NOTE]
 > Note that you need to surround the part you want to see as the class attribute value with `()` so that the plugin can backreference it.
 
+If classes appear in more than one place in your templates, use alternation and give each branch its own capturing group. The plugin uses the first group that participated in the match, so only one of the branches has to apply at a time.
+
+For example, in PHP classes live both in the attribute itself and in string literals interpolated into it:
+
+```php
+<div class="p-0 container <?= $x ? 'items-center m-0 flex' : '' ?>">
+```
+
+```json5
+{
+  "options": {
+    "parser": "anywhere",
+    "regex": "class=\"([^\"<]*)(?:\"| <)|(?<=class=\"[^\"]*<\\?[^\"']*)'([^']*)'",
+  }
+}
+```
+
+```diff
+- <div class="p-0 container <?= $x ? 'items-center m-0 flex' : '' ?>">
++ <div class="container p-0 <?= $x ? 'm-0 flex items-center' : '' ?>">
+```
+
+The lookbehind keeps the second branch from touching quoted strings elsewhere in the file, and letting the first branch stop at `<` rather than at `'` keeps arbitrary values such as `after:content-['']` intact.
+
 ## Getting involved
 
 ```shell
