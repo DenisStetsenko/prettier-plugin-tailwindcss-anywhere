@@ -1,4 +1,4 @@
-import { format } from "prettier";
+import { format, formatWithCursor } from "prettier";
 import * as prettierPluginTailwindcss from "prettier-plugin-tailwindcss";
 import { describe, expect, it } from "vitest";
 import * as plugin from "../../src/index.js";
@@ -105,6 +105,26 @@ describe("index", () => {
 
     expect(result).toMatchInlineSnapshot(`
       "<div class="container m-0 p-0"></div><div class="container m-0 p-0"></div><div class="container m-0 p-0"></div>"
+    `);
+  });
+
+  it("with a cursor offset", async () => {
+    const result = await formatWithCursor(
+      `<div class="p-0 container m-0"></div>`,
+      {
+        parser: "anywhere",
+        // @ts-ignore
+        plugins: [plugin],
+        cursorOffset: 0,
+      },
+    );
+
+    expect(result).toMatchInlineSnapshot(`
+      {
+        "comments": [],
+        "cursorOffset": 0,
+        "formatted": "<div class="container m-0 p-0"></div>",
+      }
     `);
   });
 });
