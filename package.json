@@ -11,9 +11,6 @@
   "main": "./dist/index.js",
   "exports": "./dist/index.js",
   "files": ["dist", "src"],
-  "dependencies": {
-    "tslib": "~2.8"
-  },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/node": "~24",
