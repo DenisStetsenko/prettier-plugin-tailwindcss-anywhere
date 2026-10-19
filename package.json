@@ -6,7 +6,7 @@
   "type": "module",
   "packageManager": "pnpm@12.14.0",
   "engines": {
-    "node": ">= 20.9 < 25"
+    "node": ">= 20.19 < 27"
   },
   "main": "./dist/index.js",
   "exports": "./dist/index.js",
