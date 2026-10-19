@@ -97,6 +97,22 @@ describe("index", () => {
     );
   });
 
+  it("leaves a value containing a double quote as is", async () => {
+    const result = await format(
+      `<div class='uppercase content-["x"] relative'></div><div class='p-0 container m-0'></div>`,
+      {
+        parser: "anywhere",
+        // @ts-ignore
+        plugins: [plugin],
+        regex: "class='([^']*)'",
+      },
+    );
+
+    expect(result).toMatchInlineSnapshot(
+      `"<div class='uppercase content-["x"] relative'></div><div class='container m-0 p-0'></div>"`,
+    );
+  });
+
   it("with a regex capturing overlapping groups", async () => {
     const result = await format(`<div class="p-0 container m-0"></div>`, {
       parser: "anywhere",

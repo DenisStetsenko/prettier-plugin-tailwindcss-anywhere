@@ -44,6 +44,13 @@ export const parse = async (
       continue;
     }
 
+    // A double quote would end the class attribute below and break the HTML,
+    // and Prettier does not sort values written with entities either, so such
+    // a value is left as is.
+    if (value.includes('"')) {
+      continue;
+    }
+
     const fixedValue = (
       await format(`<div class="${value}"></div>`, {
         ...tailwindOptions,
