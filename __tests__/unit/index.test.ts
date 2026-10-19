@@ -80,6 +80,36 @@ describe("index", () => {
     );
   });
 
+  it("leaves identical text outside a match untouched", async () => {
+    const result = await format(
+      `<?php $s = 'p-0 container m-0'; ?><div class="p-0 container <?= $x ? 'p-0 container m-0' : '' ?>"></div>`,
+      {
+        parser: "anywhere",
+        // @ts-ignore
+        plugins: [plugin],
+        regex:
+          'class="([^"<]*)(?:"| <)|(?<=class="[^"]*<\\?[^"\']*)\'([^\']*)\'',
+      },
+    );
+
+    expect(result).toMatchInlineSnapshot(
+      `"<?php $s = 'p-0 container m-0'; ?><div class="container p-0 <?= $x ? 'container m-0 p-0' : '' ?>"></div>"`,
+    );
+  });
+
+  it("with a regex capturing overlapping groups", async () => {
+    const result = await format(`<div class="p-0 container m-0"></div>`, {
+      parser: "anywhere",
+      // @ts-ignore
+      plugins: [plugin],
+      regex: '(?<=class="([^"]*)) ',
+    });
+
+    expect(result).toMatchInlineSnapshot(
+      `"<div class="p-0 container m-0"></div>"`,
+    );
+  });
+
   it("with a regex capturing nothing", async () => {
     const result = await format(`<div class="p-0 container m-0"></div>`, {
       parser: "anywhere",
