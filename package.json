@@ -20,7 +20,7 @@
     "@types/prettier": "^3.0.0",
     "@vitest/coverage-v8": "~2.1",
     "husky": "^9.1.7",
-    "prettier": "^3.9.6",
+    "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8",
     "rimraf": "~6.0",
     "ts-api-utils": "~1.3",
