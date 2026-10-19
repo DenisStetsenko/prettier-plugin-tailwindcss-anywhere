@@ -176,9 +176,6 @@ importers:
       '@types/node':
         specifier: ~24
         version: 24.13.3
-      '@types/prettier':
-        specifier: ^3.0.0
-        version: 3.0.0
       '@vitest/coverage-v8':
         specifier: ~2.1
         version: 2.1.4(supports-color@7.2.0)(vitest@2.1.4(@types/node@24.13.3)(supports-color@7.2.0))
@@ -559,10 +556,6 @@ packages:
 
   '@types/node@24.13.3':
     resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
-
-  '@types/prettier@3.0.0':
-    resolution: {integrity: sha512-mFMBfMOz8QxhYVbuINtswBp9VL2b4Y0QqYHwqLz3YbgtfAcat2Dl6Y1o4e22S/OVE6Ebl9m7wWiMT2lSbAs1wA==}
-    deprecated: This is a stub types definition. prettier provides its own type definitions, so you do not need this installed.
 
   '@vitest/coverage-v8@2.1.4':
     resolution: {integrity: sha512-FPKQuJfR6VTfcNMcGpqInmtJuVXFSCd9HQltYncfR01AzXhLucMEtQ5SinPdZxsT5x/5BK7I5qFJ5/ApGCmyTQ==}
@@ -1275,10 +1268,6 @@ snapshots:
   '@types/node@24.13.3':
     dependencies:
       undici-types: 7.18.2
-
-  '@types/prettier@3.0.0':
-    dependencies:
-      prettier: 3.9.10
 
   '@vitest/coverage-v8@2.1.4(supports-color@7.2.0)(vitest@2.1.4(@types/node@24.13.3)(supports-color@7.2.0))':
     dependencies:
